@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -18,6 +19,18 @@ const handleNumberChange  = (event) => {
   setNewNumber(event.target.value)
 }
 
+
+const hook = () => {
+  console.log('effect')
+  axios
+    .get('http://localhost:3001/persons')
+    .then(response => {
+      console.log('promise fulfilled')
+      setPersons(response.data)
+    })
+}
+
+useEffect(hook, [])
 
 
 const addName = (event) => {
